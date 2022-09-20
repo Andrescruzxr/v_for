@@ -6,6 +6,8 @@ import Registrar from '../views/Registrar.vue'
 import Editar from '../views/Editar.vue'
 import ListarPosts from '../views/PostS/ListarPosts.vue'
 import EditarPosts from '../views/PostS/EditarPosts.vue'
+import nuevopost from '../views/PostS/nuevopost.vue'
+import preguntas from '../views/preguntas.vue'
 
 
 Vue.use(VueRouter)
@@ -22,7 +24,7 @@ const routes = [
     component: mostrarvue
   },
   {
-    path: ':id/EditarPosts/',
+    path: '/EditarPosts/:id',
     name: 'EditarPosts',
     component: EditarPosts
   },
@@ -30,6 +32,16 @@ const routes = [
     path: '/ListarPosts',
     name: 'ListarPosts',
     component: ListarPosts
+  },
+  {
+    path: '/nuevopost/:id',
+    name: 'nuevopost',
+    component: nuevopost
+  },
+  {
+    path: '/preguntas',
+    name: 'preguntas',
+    component: preguntas
   },
   {
     path: '/Editar/:id',

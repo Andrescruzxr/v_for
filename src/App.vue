@@ -6,7 +6,8 @@
       <router-link to="/mostrarvue">mostarvue</router-link>|
       <router-link to="/Registrar">Registrar</router-link>|
       <router-link to="/Editar">Editar</router-link>
-      <router-link to="/ListarPosts">listar</router-link>
+      <router-link to="/ListarPosts">listar</router-link>-----
+      <router-link to="/preguntas">Preguntas</router-link>
 
 
 

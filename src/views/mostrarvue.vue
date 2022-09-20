@@ -13,44 +13,48 @@
     <br>
     
     <div class="table">
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>NOMBRE</th>
-            <th>DNI</th>
-            <th>TELEFONO</th>
-            <th>CORREO</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="lista in listapacientes" :key="lista.PacienteId">
-            <td>{{ lista.PacienteId }}</td>
-            <td>{{ lista.Nombre }}</td>
-            <td>{{ lista.DNI }}</td>
-            <td>{{ lista.Telefono }}</td>
-            <td>{{ lista.Correo }}</td>
-            <td>
-              <b-button
-                v-b-tooltip.hover
-                title="Eliminar registro"
-                @click="Eliminar(lista.PacienteId)"
-                variant="danger"
-              >
-                <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
-              </b-button>
-              <b-button
-                v-b-tooltip.hover
-                title="Editar registro"
-                @click="Editar(lista.PacienteId)"
-                variant="success"
-              >
-                <b-icon icon="pencil-fill" aria-hidden="true"></b-icon>
-              </b-button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+     
+      <b-form-input id="buscar" type="search" v-model="filter"></b-form-input>
+    <b-button>
+      <b-icon icon="search" aria-hidden="true"></b-icon>
+    </b-button>
+    <b-table
+      id="my-table"
+      :items="listapacientes"
+      :fields="fields"
+      class="my-table"
+      :per-page="perPage"
+      :current-page="currentPage"
+      :filter="filter"
+    >
+
+    
+      <template #cell(ACCIONES)="row">
+        <b-button
+          v-b-tooltip.hover
+          title="Eliminar "
+          @click="Eliminar(row.item.id)"
+          variant="warning"
+        >
+          <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
+        </b-button>
+        <b-button
+          v-b-tooltip.hover
+          title="Editar "
+          @click="Editar(row.item.id)"
+          variant="dark"
+        >
+          <b-icon icon="pencil-fill" aria-hidden="true"></b-icon>
+        </b-button>
+      </template>
+    </b-table>
+
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      aria-controls="my-table"
+    ></b-pagination>
     </div>
   </div>
 </template>
@@ -66,6 +70,20 @@ export default {
   name: "mostrarvue",
   data() {
     return {
+      fields: [
+        { key: "PacienteId", label: "#" },
+        { key: "Nombre", label: "Nombre" },
+        { key: "DNI", label: "descripcion" },
+        { key: "Telefono", label: "#" },
+        { key: "Correo", label: "correo" },
+        "ACCIONES"
+      ],
+      currentPage: 1,
+      rows: 10,
+      perPage: 2,
+      filter:null,
+
+
       listapacientes: null,
     };
   },

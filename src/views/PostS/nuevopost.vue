@@ -1,5 +1,6 @@
 <template>
     <div>
+        <div>
       <input type="text" v-model="post.id"/>
       <input type="text" v-model="post.title"/>
       <input type="text" v-model="post.body"/>
@@ -32,7 +33,7 @@
       <label for="input-large">post.body:</label>
     </b-col>
     <b-col sm="10">
-      <b-form-input id="body" name="body" size="lg" placeholder="escriba su texto aqui"></b-form-input>
+      <b-form-input id="body" name="body" size="lg" v-model="form" placeholder="escriba su texto aqui"></b-form-input>
     </b-col>
   </b-row>
   <b-row class="my-1">
@@ -43,30 +44,41 @@
       <b-form-input id="userId" name="userId" size="lg" placeholder="escriba su texto aqui"></b-form-input>
     </b-col>
   </b-row>
-  <b-button @click="aceptar()" size="sm" variant="dark" class="mb-2 ">ACEPTAR
-          <b-icon icon="squar" aria-hidden="true"></b-icon> 
-          </b-button>
 
-          <b-button @click="salir()" size="sm" variant="success" class="mb-2 ">SALIR
-          <b-icon icon="pencil-fill" aria-hidden="true"></b-icon> 
-          </b-button>
+
+          
 </b-container>
   </div>
  
     </div>
-  </template>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <script>
-  import axios from "axios";
+<b-button
+        v-b-tooltip.hover
+        title="Nuevo registro"
+        @click="guardar()"
+        variant="dark"
+      >
+        <b-icon icon="pencil" aria-hidden="true"></b-icon>guardar
+      </b-button>
+      <b-button
+        v-b-tooltip.hover
+        title="Nuevo registro"
+        @click="salir()"
+        variant="success"
+      >
+        <b-icon icon="pencil" aria-hidden="true"></b-icon>salir
+      </b-button>
+  </div>
+</template>
+
+
+
+
+
+
+
+
+<script>
+import axios from "axios";
   
   export default {
     name: '',
@@ -83,9 +95,8 @@
     component: {},
     computed: {},
     methods: {
-aceptar(){
-  let variable=this.$route.params.id
-axios.put("https://jsonplaceholder.typicode.com/posts/"+variable,this.post).then(data=>{
+guardar(){
+axios.post("https://jsonplaceholder.typicode.com/posts",this.post).then(data=>{
 this.$router.push("/ListarPosts");
 });
 },
@@ -93,14 +104,6 @@ salir(){
   this.$router.push("/ListarPosts");
 } ,  
     },
-    mounted: function () {
-     let id= this.$route.params.id
-     axios.get("https://jsonplaceholder.typicode.com/posts/"+id).then(data=>{
-this.post.id=data.data.id
-this.post.title=data.data.title
-this.post.body=data.data.body
-this.post.userId=data.data.userId
-     });
-    },
+
   }
-  </script>
+</script>
